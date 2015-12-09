@@ -4,17 +4,19 @@ import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 
 import oshi.hardware.CentralProcessor;
-import oshi.hardware.platform.windows.WindowsCentralProcessor;
+import oshi.hardware.platform.linux.LinuxCentralProcessor;
+
 
 
 public class CPUMonitor{
 
 	
 	 public static void main(String[] args) {
-		 CentralProcessor sp = new WindowsCentralProcessor();
+		 CentralProcessor sp = new LinuxCentralProcessor();
 		 for(;;){
 			try {
-				if((sp.getSystemCpuLoad() * 100) >= Integer.parseInt(args[3])){
+				System.out.println(sp.getSystemCpuLoad());
+				if((sp.getSystemCpuLoad() * 100) >= Integer.parseInt(args[2])){
 				 	sendEmail(args[0], args[1], (sp.getSystemCpuLoad() * 100));
 			 	}
 				Thread.sleep(1000 * 60);
